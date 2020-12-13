@@ -1,0 +1,7 @@
+R1	Lives_In Microorganism:T2 Location:T3
+R2	Exhibits Microorganism:T2 Property:T1
+R3	Lives_In Microorganism:T4 Location:T6
+R4	Lives_In Microorganism:T4 Location:T5
+R5	Exhibits Microorganism:T4 Property:T7
+R6	Exhibits Microorganism:T4 Property:T8
+R7	Exhibits Microorganism:T4 Property:T9

@@ -1,0 +1,14 @@
+
+clasification_mineria.egg-info/
+
+.idea/
+
+build/
+
+dist/
+
+prueba/
+
+venv/
+
+pruebas.py

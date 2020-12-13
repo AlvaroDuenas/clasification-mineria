@@ -1,0 +1,6 @@
+R1	Lives_In Microorganism:T7 Location:T6
+R2	Lives_In Microorganism:T7 Location:T9
+R3	Lives_In Microorganism:T17 Location:T16
+R4	Lives_In Microorganism:T21 Location:T20
+R5	Lives_In Microorganism:T21 Location:T16
+*	Equiv T6 T9

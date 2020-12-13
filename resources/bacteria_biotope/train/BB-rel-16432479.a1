@@ -1,0 +1,29 @@
+T1	Title 0 131	Challenges in the control of gonorrhea in South America and the Caribbean: monitoring the development of resistance to antibiotics.
+T2	Paragraph 132 387	: The objective of this study was to ascertain the antimicrobial susceptibility of Neisseria gonorrhoeae isolates from 6 South American and 13 Caribbean countries participating in the Gonococcal Antimicrobial Surveillance Program (GASP) from 1990 to 1999.
+T3	Paragraph 388 683	: A GASP network of laboratories was launched in the Americas and the Caribbean during the 1990s. Standardized methods and interpretative criteria were established for the isolation of N. gonorrhoeae, strain identification, and determination, and quality control of antimicrobial susceptibility.
+T4	Paragraph 684 1551	: Two countries (Argentina and Uruguay) maintained continuous surveillance during the study period. Some countries gathered data periodically and several others were unable to initiate antimicrobial surveillance as a result of lack of resources. The percentage of penicillin-resistant N. gonorrhoeae isolated in the region over the decade varied considerably (1.0-11.9% carried chromosomal resistance and 17.9-38.8% produced beta-lactamase) with an overall trend to declining numbers of penicillin-resistant isolates. For tetracycline, 7.4% to 36.3% carried chromosomal resistance, whereas 12.0% to 27.4% carried plasmid-mediated resistance. There were no reports of ciprofloxacin-resistant isolates, although N. gonorrhoeae with decreased susceptibility to ciprofloxacin and azithromycin as well as spectinomycin-resistant isolates were identified in some countries.
+T5	Geographical 42 55	South America
+T6	Geographical 64 73	Caribbean
+T7	Phenotype 105 130	resistance to antibiotics
+T8	Phenotype 183 211	antimicrobial susceptibility
+T9	Microorganism 215 236	Neisseria gonorrhoeae
+T10	Geographical 253 267	South American
+T11	Geographical 275 284	Caribbean
+T12	Habitat 408 420	laboratories
+T13	Geographical 441 449	Americas
+T14	Geographical 458 467	Caribbean
+T15	Microorganism 573 587	N. gonorrhoeae
+T16	Phenotype 654 682	antimicrobial susceptibility
+T17	Geographical 701 710	Argentina
+T18	Geographical 715 722	Uruguay
+T19	Phenotype 948 968	penicillin-resistant
+T20	Microorganism 969 983	N. gonorrhoeae
+T21	Phenotype 1074 1084	resistance
+T22	Phenotype 1171 1191	penicillin-resistant
+T23	Phenotype 1254 1264	resistance
+T24	Phenotype 1314 1324	resistance
+T25	Phenotype 1351 1374	ciprofloxacin-resistant
+T26	Microorganism 1394 1408	N. gonorrhoeae
+T27	Phenotype 1414 1441;1460 1472	decreased susceptibility to azithromycin
+T28	Phenotype 1414 1455	decreased susceptibility to ciprofloxacin
+T29	Phenotype 1484 1507	spectinomycin-resistant
