@@ -10,18 +10,33 @@ from clasification_mineria.Tokenizer import Tokenizer
 
 
 class Reader(ABC):
+    """
+    Format abstract reader.
+    """
     @staticmethod
     @abstractmethod
     def load(file_path: str, tokenizer: Tokenizer) -> Dataset: ...
 
 
 class Standoff(Reader):
+    """
+    Standoff format reader
+    """
     annotation_extensions = ['ann', 'a1', 'a2']
     ignored_entities = ['Title', 'Paragraph']
     split_paragraphs = False
 
     @staticmethod
     def load(file_path: str, tokenizer: Tokenizer) -> Dataset:
+        """
+        Loads the folder dataset with the given tokenizer if needed
+        Args:
+            file_path: Folder path
+            tokenizer: Tokenizer for splitting text
+
+        Returns:
+            The generated dataset
+        """
         corpus_name = os.path.basename(os.path.dirname(file_path))
         corpus = Dataset(corpus_name)
         if os.path.isdir(file_path):
@@ -39,6 +54,18 @@ class Standoff(Reader):
 
     @staticmethod
     def get_annotation_files(file_path: str) -> List[str]:
+        """
+        Gets the annotation files of the txt file
+        Args:
+            file_path: file path
+
+        Returns:
+            the annotation files paths
+
+        Raises:
+            AssertionError: If an error occurs
+
+        """
         assert file_path.endswith(".txt")
         base = file_path[:-4]
         annotation_files = ["%s.%s" % (base, ext) for ext in
@@ -49,6 +76,20 @@ class Standoff(Reader):
     @staticmethod
     def load_entity(line: str,
                     doc: Document, dataset: Dataset) -> Optional[Entity]:
+        """
+        Loads a entity from the given line into the dataset
+        Args:
+            line: The Annotation Entity
+            doc: The Corresponding Document Object
+            dataset: The Corresponding Dataset
+
+        Returns:
+            The generated Entity if it's not ignored
+
+        Raises:
+            StopIteration: If there arent more tokens in the doc.
+            AssertionError: If an error occurs
+        """
         split = line.split('\t')
         i = str(split[1]).index(' ')
         ent_id = split[0]
@@ -124,6 +165,14 @@ Complex relations are not allowed"""
     @staticmethod
     def load_document(file_path: str, filename: str, dataset: Dataset,
                       tokenizer: Tokenizer) -> None:
+        """
+        Loads the current document into the dataset
+        Args:
+            file_path: The current document file path
+            filename: The name of the file
+            dataset: The dataset object
+            tokenizer: The text tokenizer if needed
+        """
         with codecs.open(file_path, "r", "utf-8") as f:
             text = f.read()
             text = re.sub('\n', ' ', text)
@@ -140,18 +189,33 @@ Complex relations are not allowed"""
                             doc.add_relation(
                                 Standoff.load_relation(line, doc, dataset))
                     except AssertionError:
-                        # print(doc.file_name)
-                        # print(doc.tokens)
-                        # print(line)
                         pass
                     except KeyError:
                         pass
 
 
 class ReaderFactory:
+    """
+    Generates the requested reader
+    """
     readers = ["standoff"]
 
     @staticmethod
     def get_reader(name: str) -> Type[Reader]:
+        """
+        Generates the requested reader
+
+        Args:
+            name: the reader's name
+
+        Returns:
+            The Requested Reader's Type
+
+        Raises:
+            ValueError: If not found
+        """
+
         if name == "standoff":
             return Standoff
+        else:
+            raise ValueError

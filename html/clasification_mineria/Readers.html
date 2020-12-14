@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>clasification_mineria.Readers API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>clasification_mineria.Readers</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import codecs
+import os
+import re
+from abc import ABC, abstractmethod
+from collections import OrderedDict
+from typing import List, Optional, Type
+
+from clasification_mineria.Entities import Dataset, Entity, Relation, Document
+from clasification_mineria.Tokenizer import Tokenizer
+
+
+class Reader(ABC):
+    &#34;&#34;&#34;
+    Format abstract reader.
+    &#34;&#34;&#34;
+    @staticmethod
+    @abstractmethod
+    def load(file_path: str, tokenizer: Tokenizer) -&gt; Dataset: ...
+
+
+class Standoff(Reader):
+    &#34;&#34;&#34;
+    Standoff format reader
+    &#34;&#34;&#34;
+    annotation_extensions = [&#39;ann&#39;, &#39;a1&#39;, &#39;a2&#39;]
+    ignored_entities = [&#39;Title&#39;, &#39;Paragraph&#39;]
+    split_paragraphs = False
+
+    @staticmethod
+    def load(file_path: str, tokenizer: Tokenizer) -&gt; Dataset:
+        &#34;&#34;&#34;
+        Loads the folder dataset with the given tokenizer if needed
+        Args:
+            file_path: Folder path
+            tokenizer: Tokenizer for splitting text
+
+        Returns:
+            The generated dataset
+        &#34;&#34;&#34;
+        corpus_name = os.path.basename(os.path.dirname(file_path))
+        corpus = Dataset(corpus_name)
+        if os.path.isdir(file_path):
+            directory = file_path
+            filenames = sorted(list(os.listdir(directory)))
+            for filename in filenames:
+                if filename.endswith(&#34;.txt&#34;):
+                    abs_path = os.path.join(directory, filename)
+                    # print(filename)
+                    Standoff.load_document(abs_path, filename, corpus,
+                                           tokenizer)
+        else:
+            Standoff.load_document(file_path, corpus_name, corpus, tokenizer)
+        return corpus
+
+    @staticmethod
+    def get_annotation_files(file_path: str) -&gt; List[str]:
+        &#34;&#34;&#34;
+        Gets the annotation files of the txt file
+        Args:
+            file_path: file path
+
+        Returns:
+            the annotation files paths
+
+        Raises:
+            AssertionError: If an error occurs
+
+        &#34;&#34;&#34;
+        assert file_path.endswith(&#34;.txt&#34;)
+        base = file_path[:-4]
+        annotation_files = [&#34;%s.%s&#34; % (base, ext) for ext in
+                            Standoff.annotation_extensions]
+        return [filename for filename in annotation_files if
+                os.path.isfile(filename)]
+
+    @staticmethod
+    def load_entity(line: str,
+                    doc: Document, dataset: Dataset) -&gt; Optional[Entity]:
+        &#34;&#34;&#34;
+        Loads a entity from the given line into the dataset
+        Args:
+            line: The Annotation Entity
+            doc: The Corresponding Document Object
+            dataset: The Corresponding Dataset
+
+        Returns:
+            The generated Entity if it&#39;s not ignored
+
+        Raises:
+            StopIteration: If there arent more tokens in the doc.
+            AssertionError: If an error occurs
+        &#34;&#34;&#34;
+        split = line.split(&#39;\t&#39;)
+        i = str(split[1]).index(&#39; &#39;)
+        ent_id = split[0]
+        ent_text = split[2]
+        ent_type_name = split[1][:i]
+        if ent_type_name in Standoff.ignored_entities:
+            return None
+        ent_type = dataset.create_entity_type(ent_type_name)
+
+        ent_tokens = []
+        try:
+            _iter = doc.tokens.__iter__()
+            token = next(_iter)
+            for start, end in map(lambda c: tuple(map(int, c.split(&#39; &#39;))),
+                                  split[1][i + 1:].split(&#34;;&#34;)):
+                while token.end &lt;= end:
+                    if start &lt;= token.start:
+                        ent_tokens.append(token)
+                    token = next(_iter)
+                try:
+                    ent_tokens[-1].ws = &#34; &#34;
+                except IndexError:
+                    print(doc.file_name)
+                    print(line)
+                    print(doc.tokens)
+        except StopIteration:
+            print(&#34;Iteration Stopped&#34;)
+        ent_tokens[-1].ws = &#34;&#34;
+        check_text = &#34;&#34;.join([token.ws for token in ent_tokens]).strip()
+        if len(check_text) != len(ent_text):
+            for token in ent_tokens:
+                if str(token) + &#34; &#34; in ent_text and not token.has_ws:
+                    token.ws = &#34; &#34;
+            check_text = &#34;&#34;.join([token.ws for token in ent_tokens]).strip()
+            error_msg = f&#34;&#34;&#34;
+No coinciden las entidades en {doc.file_name} 
+{line}
+{ent_text}
+{check_text}
+{ent_tokens}
+{str(doc.tokens)}
+{doc.text}&#34;&#34;&#34;
+            assert ent_text == check_text, error_msg
+        return dataset.create_entity(ent_id, ent_type, ent_tokens,
+                                     ent_text)
+
+    @staticmethod
+    def load_relation(line: str,
+                      doc: Document, dataset: Dataset) -&gt; Relation:
+        assert line[0] == &#39;E&#39; or line[
+            0] == &#39;R&#39;, f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Relation input should start with a E or R&#34;&#34;&#34;
+        split = line.split(&#34;\t&#34;)
+        rel_id = split[0]
+        relation = split[1].split(&#34; &#34;)
+        rel_type = dataset.create_relation_type(relation[0])
+        rel_entities = OrderedDict()
+        for name, entity_id in [tuple(entity.split(&#34;:&#34;)) for entity in
+                                relation[1:]]:
+            assert entity_id.startswith(&#34;T&#34;), f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Complex relations are not allowed&#34;&#34;&#34;
+            rel_entities[entity_id] = doc.entities[entity_id]
+        assert len(rel_entities.values()) == 2, f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Complex relations are not allowed&#34;&#34;&#34;
+        return dataset.create_relation(rel_id, rel_type, rel_entities)
+
+    @staticmethod
+    def load_document(file_path: str, filename: str, dataset: Dataset,
+                      tokenizer: Tokenizer) -&gt; None:
+        &#34;&#34;&#34;
+        Loads the current document into the dataset
+        Args:
+            file_path: The current document file path
+            filename: The name of the file
+            dataset: The dataset object
+            tokenizer: The text tokenizer if needed
+        &#34;&#34;&#34;
+        with codecs.open(file_path, &#34;r&#34;, &#34;utf-8&#34;) as f:
+            text = f.read()
+            text = re.sub(&#39;\n&#39;, &#39; &#39;, text)
+        doc = dataset.create_document(filename, text, tokenizer.tokenize(text))
+        for annotation_file in Standoff.get_annotation_files(file_path):
+            with codecs.open(annotation_file, &#34;r&#34;, &#34;utf-8&#34;) as f:
+                for line in f:
+                    try:
+                        line = str(line.strip())
+                        if line.startswith(&#39;T&#39;):
+                            doc.add_entity(
+                                Standoff.load_entity(line, doc, dataset))
+                        elif line.startswith(&#39;E&#39;) or line.startswith(&#39;R&#39;):
+                            doc.add_relation(
+                                Standoff.load_relation(line, doc, dataset))
+                    except AssertionError:
+                        pass
+                    except KeyError:
+                        pass
+
+
+class ReaderFactory:
+    &#34;&#34;&#34;
+    Generates the requested reader
+    &#34;&#34;&#34;
+    readers = [&#34;standoff&#34;]
+
+    @staticmethod
+    def get_reader(name: str) -&gt; Type[Reader]:
+        &#34;&#34;&#34;
+        Generates the requested reader
+
+        Args:
+            name: the reader&#39;s name
+
+        Returns:
+            The Requested Reader&#39;s Type
+
+        Raises:
+            ValueError: If not found
+        &#34;&#34;&#34;
+
+        if name == &#34;standoff&#34;:
+            return Standoff
+        else:
+            raise ValueError</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="clasification_mineria.Readers.Reader"><code class="flex name class">
+<span>class <span class="ident">Reader</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Format abstract reader.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Reader(ABC):
+    &#34;&#34;&#34;
+    Format abstract reader.
+    &#34;&#34;&#34;
+    @staticmethod
+    @abstractmethod
+    def load(file_path: str, tokenizer: Tokenizer) -&gt; Dataset: ...</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="clasification_mineria.Readers.Standoff" href="#clasification_mineria.Readers.Standoff">Standoff</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="clasification_mineria.Readers.Reader.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>file_path: str, tokenizer: <a title="clasification_mineria.Tokenizer.Tokenizer" href="Tokenizer.html#clasification_mineria.Tokenizer.Tokenizer">Tokenizer</a>) ‑> <a title="clasification_mineria.Entities.Dataset" href="Entities.html#clasification_mineria.Entities.Dataset">Dataset</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+@abstractmethod
+def load(file_path: str, tokenizer: Tokenizer) -&gt; Dataset: ...</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="clasification_mineria.Readers.ReaderFactory"><code class="flex name class">
+<span>class <span class="ident">ReaderFactory</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates the requested reader</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ReaderFactory:
+    &#34;&#34;&#34;
+    Generates the requested reader
+    &#34;&#34;&#34;
+    readers = [&#34;standoff&#34;]
+
+    @staticmethod
+    def get_reader(name: str) -&gt; Type[Reader]:
+        &#34;&#34;&#34;
+        Generates the requested reader
+
+        Args:
+            name: the reader&#39;s name
+
+        Returns:
+            The Requested Reader&#39;s Type
+
+        Raises:
+            ValueError: If not found
+        &#34;&#34;&#34;
+
+        if name == &#34;standoff&#34;:
+            return Standoff
+        else:
+            raise ValueError</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="clasification_mineria.Readers.ReaderFactory.readers"><code class="name">var <span class="ident">readers</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="clasification_mineria.Readers.ReaderFactory.get_reader"><code class="name flex">
+<span>def <span class="ident">get_reader</span></span>(<span>name: str) ‑> Type[<a title="clasification_mineria.Readers.Reader" href="#clasification_mineria.Readers.Reader">Reader</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates the requested reader</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong></dt>
+<dd>the reader's name</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The Requested Reader's Type</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If not found</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_reader(name: str) -&gt; Type[Reader]:
+    &#34;&#34;&#34;
+    Generates the requested reader
+
+    Args:
+        name: the reader&#39;s name
+
+    Returns:
+        The Requested Reader&#39;s Type
+
+    Raises:
+        ValueError: If not found
+    &#34;&#34;&#34;
+
+    if name == &#34;standoff&#34;:
+        return Standoff
+    else:
+        raise ValueError</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff"><code class="flex name class">
+<span>class <span class="ident">Standoff</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Standoff format reader</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Standoff(Reader):
+    &#34;&#34;&#34;
+    Standoff format reader
+    &#34;&#34;&#34;
+    annotation_extensions = [&#39;ann&#39;, &#39;a1&#39;, &#39;a2&#39;]
+    ignored_entities = [&#39;Title&#39;, &#39;Paragraph&#39;]
+    split_paragraphs = False
+
+    @staticmethod
+    def load(file_path: str, tokenizer: Tokenizer) -&gt; Dataset:
+        &#34;&#34;&#34;
+        Loads the folder dataset with the given tokenizer if needed
+        Args:
+            file_path: Folder path
+            tokenizer: Tokenizer for splitting text
+
+        Returns:
+            The generated dataset
+        &#34;&#34;&#34;
+        corpus_name = os.path.basename(os.path.dirname(file_path))
+        corpus = Dataset(corpus_name)
+        if os.path.isdir(file_path):
+            directory = file_path
+            filenames = sorted(list(os.listdir(directory)))
+            for filename in filenames:
+                if filename.endswith(&#34;.txt&#34;):
+                    abs_path = os.path.join(directory, filename)
+                    # print(filename)
+                    Standoff.load_document(abs_path, filename, corpus,
+                                           tokenizer)
+        else:
+            Standoff.load_document(file_path, corpus_name, corpus, tokenizer)
+        return corpus
+
+    @staticmethod
+    def get_annotation_files(file_path: str) -&gt; List[str]:
+        &#34;&#34;&#34;
+        Gets the annotation files of the txt file
+        Args:
+            file_path: file path
+
+        Returns:
+            the annotation files paths
+
+        Raises:
+            AssertionError: If an error occurs
+
+        &#34;&#34;&#34;
+        assert file_path.endswith(&#34;.txt&#34;)
+        base = file_path[:-4]
+        annotation_files = [&#34;%s.%s&#34; % (base, ext) for ext in
+                            Standoff.annotation_extensions]
+        return [filename for filename in annotation_files if
+                os.path.isfile(filename)]
+
+    @staticmethod
+    def load_entity(line: str,
+                    doc: Document, dataset: Dataset) -&gt; Optional[Entity]:
+        &#34;&#34;&#34;
+        Loads a entity from the given line into the dataset
+        Args:
+            line: The Annotation Entity
+            doc: The Corresponding Document Object
+            dataset: The Corresponding Dataset
+
+        Returns:
+            The generated Entity if it&#39;s not ignored
+
+        Raises:
+            StopIteration: If there arent more tokens in the doc.
+            AssertionError: If an error occurs
+        &#34;&#34;&#34;
+        split = line.split(&#39;\t&#39;)
+        i = str(split[1]).index(&#39; &#39;)
+        ent_id = split[0]
+        ent_text = split[2]
+        ent_type_name = split[1][:i]
+        if ent_type_name in Standoff.ignored_entities:
+            return None
+        ent_type = dataset.create_entity_type(ent_type_name)
+
+        ent_tokens = []
+        try:
+            _iter = doc.tokens.__iter__()
+            token = next(_iter)
+            for start, end in map(lambda c: tuple(map(int, c.split(&#39; &#39;))),
+                                  split[1][i + 1:].split(&#34;;&#34;)):
+                while token.end &lt;= end:
+                    if start &lt;= token.start:
+                        ent_tokens.append(token)
+                    token = next(_iter)
+                try:
+                    ent_tokens[-1].ws = &#34; &#34;
+                except IndexError:
+                    print(doc.file_name)
+                    print(line)
+                    print(doc.tokens)
+        except StopIteration:
+            print(&#34;Iteration Stopped&#34;)
+        ent_tokens[-1].ws = &#34;&#34;
+        check_text = &#34;&#34;.join([token.ws for token in ent_tokens]).strip()
+        if len(check_text) != len(ent_text):
+            for token in ent_tokens:
+                if str(token) + &#34; &#34; in ent_text and not token.has_ws:
+                    token.ws = &#34; &#34;
+            check_text = &#34;&#34;.join([token.ws for token in ent_tokens]).strip()
+            error_msg = f&#34;&#34;&#34;
+No coinciden las entidades en {doc.file_name} 
+{line}
+{ent_text}
+{check_text}
+{ent_tokens}
+{str(doc.tokens)}
+{doc.text}&#34;&#34;&#34;
+            assert ent_text == check_text, error_msg
+        return dataset.create_entity(ent_id, ent_type, ent_tokens,
+                                     ent_text)
+
+    @staticmethod
+    def load_relation(line: str,
+                      doc: Document, dataset: Dataset) -&gt; Relation:
+        assert line[0] == &#39;E&#39; or line[
+            0] == &#39;R&#39;, f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Relation input should start with a E or R&#34;&#34;&#34;
+        split = line.split(&#34;\t&#34;)
+        rel_id = split[0]
+        relation = split[1].split(&#34; &#34;)
+        rel_type = dataset.create_relation_type(relation[0])
+        rel_entities = OrderedDict()
+        for name, entity_id in [tuple(entity.split(&#34;:&#34;)) for entity in
+                                relation[1:]]:
+            assert entity_id.startswith(&#34;T&#34;), f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Complex relations are not allowed&#34;&#34;&#34;
+            rel_entities[entity_id] = doc.entities[entity_id]
+        assert len(rel_entities.values()) == 2, f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Complex relations are not allowed&#34;&#34;&#34;
+        return dataset.create_relation(rel_id, rel_type, rel_entities)
+
+    @staticmethod
+    def load_document(file_path: str, filename: str, dataset: Dataset,
+                      tokenizer: Tokenizer) -&gt; None:
+        &#34;&#34;&#34;
+        Loads the current document into the dataset
+        Args:
+            file_path: The current document file path
+            filename: The name of the file
+            dataset: The dataset object
+            tokenizer: The text tokenizer if needed
+        &#34;&#34;&#34;
+        with codecs.open(file_path, &#34;r&#34;, &#34;utf-8&#34;) as f:
+            text = f.read()
+            text = re.sub(&#39;\n&#39;, &#39; &#39;, text)
+        doc = dataset.create_document(filename, text, tokenizer.tokenize(text))
+        for annotation_file in Standoff.get_annotation_files(file_path):
+            with codecs.open(annotation_file, &#34;r&#34;, &#34;utf-8&#34;) as f:
+                for line in f:
+                    try:
+                        line = str(line.strip())
+                        if line.startswith(&#39;T&#39;):
+                            doc.add_entity(
+                                Standoff.load_entity(line, doc, dataset))
+                        elif line.startswith(&#39;E&#39;) or line.startswith(&#39;R&#39;):
+                            doc.add_relation(
+                                Standoff.load_relation(line, doc, dataset))
+                    except AssertionError:
+                        pass
+                    except KeyError:
+                        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="clasification_mineria.Readers.Reader" href="#clasification_mineria.Readers.Reader">Reader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="clasification_mineria.Readers.Standoff.annotation_extensions"><code class="name">var <span class="ident">annotation_extensions</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff.ignored_entities"><code class="name">var <span class="ident">ignored_entities</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff.split_paragraphs"><code class="name">var <span class="ident">split_paragraphs</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="clasification_mineria.Readers.Standoff.get_annotation_files"><code class="name flex">
+<span>def <span class="ident">get_annotation_files</span></span>(<span>file_path: str) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the annotation files of the txt file</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>file path</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>the annotation files paths</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>AssertionError</code></dt>
+<dd>If an error occurs</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_annotation_files(file_path: str) -&gt; List[str]:
+    &#34;&#34;&#34;
+    Gets the annotation files of the txt file
+    Args:
+        file_path: file path
+
+    Returns:
+        the annotation files paths
+
+    Raises:
+        AssertionError: If an error occurs
+
+    &#34;&#34;&#34;
+    assert file_path.endswith(&#34;.txt&#34;)
+    base = file_path[:-4]
+    annotation_files = [&#34;%s.%s&#34; % (base, ext) for ext in
+                        Standoff.annotation_extensions]
+    return [filename for filename in annotation_files if
+            os.path.isfile(filename)]</code></pre>
+</details>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>file_path: str, tokenizer: <a title="clasification_mineria.Tokenizer.Tokenizer" href="Tokenizer.html#clasification_mineria.Tokenizer.Tokenizer">Tokenizer</a>) ‑> <a title="clasification_mineria.Entities.Dataset" href="Entities.html#clasification_mineria.Entities.Dataset">Dataset</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads the folder dataset with the given tokenizer if needed</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>Folder path</dd>
+<dt><strong><code>tokenizer</code></strong></dt>
+<dd>Tokenizer for splitting text</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The generated dataset</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def load(file_path: str, tokenizer: Tokenizer) -&gt; Dataset:
+    &#34;&#34;&#34;
+    Loads the folder dataset with the given tokenizer if needed
+    Args:
+        file_path: Folder path
+        tokenizer: Tokenizer for splitting text
+
+    Returns:
+        The generated dataset
+    &#34;&#34;&#34;
+    corpus_name = os.path.basename(os.path.dirname(file_path))
+    corpus = Dataset(corpus_name)
+    if os.path.isdir(file_path):
+        directory = file_path
+        filenames = sorted(list(os.listdir(directory)))
+        for filename in filenames:
+            if filename.endswith(&#34;.txt&#34;):
+                abs_path = os.path.join(directory, filename)
+                # print(filename)
+                Standoff.load_document(abs_path, filename, corpus,
+                                       tokenizer)
+    else:
+        Standoff.load_document(file_path, corpus_name, corpus, tokenizer)
+    return corpus</code></pre>
+</details>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff.load_document"><code class="name flex">
+<span>def <span class="ident">load_document</span></span>(<span>file_path: str, filename: str, dataset: <a title="clasification_mineria.Entities.Dataset" href="Entities.html#clasification_mineria.Entities.Dataset">Dataset</a>, tokenizer: <a title="clasification_mineria.Tokenizer.Tokenizer" href="Tokenizer.html#clasification_mineria.Tokenizer.Tokenizer">Tokenizer</a>) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads the current document into the dataset</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>The current document file path</dd>
+<dt><strong><code>filename</code></strong></dt>
+<dd>The name of the file</dd>
+<dt><strong><code>dataset</code></strong></dt>
+<dd>The dataset object</dd>
+<dt><strong><code>tokenizer</code></strong></dt>
+<dd>The text tokenizer if needed</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def load_document(file_path: str, filename: str, dataset: Dataset,
+                  tokenizer: Tokenizer) -&gt; None:
+    &#34;&#34;&#34;
+    Loads the current document into the dataset
+    Args:
+        file_path: The current document file path
+        filename: The name of the file
+        dataset: The dataset object
+        tokenizer: The text tokenizer if needed
+    &#34;&#34;&#34;
+    with codecs.open(file_path, &#34;r&#34;, &#34;utf-8&#34;) as f:
+        text = f.read()
+        text = re.sub(&#39;\n&#39;, &#39; &#39;, text)
+    doc = dataset.create_document(filename, text, tokenizer.tokenize(text))
+    for annotation_file in Standoff.get_annotation_files(file_path):
+        with codecs.open(annotation_file, &#34;r&#34;, &#34;utf-8&#34;) as f:
+            for line in f:
+                try:
+                    line = str(line.strip())
+                    if line.startswith(&#39;T&#39;):
+                        doc.add_entity(
+                            Standoff.load_entity(line, doc, dataset))
+                    elif line.startswith(&#39;E&#39;) or line.startswith(&#39;R&#39;):
+                        doc.add_relation(
+                            Standoff.load_relation(line, doc, dataset))
+                except AssertionError:
+                    pass
+                except KeyError:
+                    pass</code></pre>
+</details>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff.load_entity"><code class="name flex">
+<span>def <span class="ident">load_entity</span></span>(<span>line: str, doc: <a title="clasification_mineria.Entities.Document" href="Entities.html#clasification_mineria.Entities.Document">Document</a>, dataset: <a title="clasification_mineria.Entities.Dataset" href="Entities.html#clasification_mineria.Entities.Dataset">Dataset</a>) ‑> Union[<a title="clasification_mineria.Entities.Entity" href="Entities.html#clasification_mineria.Entities.Entity">Entity</a>, NoneType]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads a entity from the given line into the dataset</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>line</code></strong></dt>
+<dd>The Annotation Entity</dd>
+<dt><strong><code>doc</code></strong></dt>
+<dd>The Corresponding Document Object</dd>
+<dt><strong><code>dataset</code></strong></dt>
+<dd>The Corresponding Dataset</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The generated Entity if it's not ignored</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>StopIteration</code></dt>
+<dd>If there arent more tokens in the doc.</dd>
+<dt><code>AssertionError</code></dt>
+<dd>If an error occurs</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    @staticmethod
+    def load_entity(line: str,
+                    doc: Document, dataset: Dataset) -&gt; Optional[Entity]:
+        &#34;&#34;&#34;
+        Loads a entity from the given line into the dataset
+        Args:
+            line: The Annotation Entity
+            doc: The Corresponding Document Object
+            dataset: The Corresponding Dataset
+
+        Returns:
+            The generated Entity if it&#39;s not ignored
+
+        Raises:
+            StopIteration: If there arent more tokens in the doc.
+            AssertionError: If an error occurs
+        &#34;&#34;&#34;
+        split = line.split(&#39;\t&#39;)
+        i = str(split[1]).index(&#39; &#39;)
+        ent_id = split[0]
+        ent_text = split[2]
+        ent_type_name = split[1][:i]
+        if ent_type_name in Standoff.ignored_entities:
+            return None
+        ent_type = dataset.create_entity_type(ent_type_name)
+
+        ent_tokens = []
+        try:
+            _iter = doc.tokens.__iter__()
+            token = next(_iter)
+            for start, end in map(lambda c: tuple(map(int, c.split(&#39; &#39;))),
+                                  split[1][i + 1:].split(&#34;;&#34;)):
+                while token.end &lt;= end:
+                    if start &lt;= token.start:
+                        ent_tokens.append(token)
+                    token = next(_iter)
+                try:
+                    ent_tokens[-1].ws = &#34; &#34;
+                except IndexError:
+                    print(doc.file_name)
+                    print(line)
+                    print(doc.tokens)
+        except StopIteration:
+            print(&#34;Iteration Stopped&#34;)
+        ent_tokens[-1].ws = &#34;&#34;
+        check_text = &#34;&#34;.join([token.ws for token in ent_tokens]).strip()
+        if len(check_text) != len(ent_text):
+            for token in ent_tokens:
+                if str(token) + &#34; &#34; in ent_text and not token.has_ws:
+                    token.ws = &#34; &#34;
+            check_text = &#34;&#34;.join([token.ws for token in ent_tokens]).strip()
+            error_msg = f&#34;&#34;&#34;
+No coinciden las entidades en {doc.file_name} 
+{line}
+{ent_text}
+{check_text}
+{ent_tokens}
+{str(doc.tokens)}
+{doc.text}&#34;&#34;&#34;
+            assert ent_text == check_text, error_msg
+        return dataset.create_entity(ent_id, ent_type, ent_tokens,
+                                     ent_text)</code></pre>
+</details>
+</dd>
+<dt id="clasification_mineria.Readers.Standoff.load_relation"><code class="name flex">
+<span>def <span class="ident">load_relation</span></span>(<span>line: str, doc: <a title="clasification_mineria.Entities.Document" href="Entities.html#clasification_mineria.Entities.Document">Document</a>, dataset: <a title="clasification_mineria.Entities.Dataset" href="Entities.html#clasification_mineria.Entities.Dataset">Dataset</a>) ‑> <a title="clasification_mineria.Entities.Relation" href="Entities.html#clasification_mineria.Entities.Relation">Relation</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    @staticmethod
+    def load_relation(line: str,
+                      doc: Document, dataset: Dataset) -&gt; Relation:
+        assert line[0] == &#39;E&#39; or line[
+            0] == &#39;R&#39;, f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Relation input should start with a E or R&#34;&#34;&#34;
+        split = line.split(&#34;\t&#34;)
+        rel_id = split[0]
+        relation = split[1].split(&#34; &#34;)
+        rel_type = dataset.create_relation_type(relation[0])
+        rel_entities = OrderedDict()
+        for name, entity_id in [tuple(entity.split(&#34;:&#34;)) for entity in
+                                relation[1:]]:
+            assert entity_id.startswith(&#34;T&#34;), f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Complex relations are not allowed&#34;&#34;&#34;
+            rel_entities[entity_id] = doc.entities[entity_id]
+        assert len(rel_entities.values()) == 2, f&#34;&#34;&#34;
+ERROR in {doc.file_name}. 
+In line: {line}
+Complex relations are not allowed&#34;&#34;&#34;
+        return dataset.create_relation(rel_id, rel_type, rel_entities)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="clasification_mineria" href="index.html">clasification_mineria</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="clasification_mineria.Readers.Reader" href="#clasification_mineria.Readers.Reader">Reader</a></code></h4>
+<ul class="">
+<li><code><a title="clasification_mineria.Readers.Reader.load" href="#clasification_mineria.Readers.Reader.load">load</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="clasification_mineria.Readers.ReaderFactory" href="#clasification_mineria.Readers.ReaderFactory">ReaderFactory</a></code></h4>
+<ul class="">
+<li><code><a title="clasification_mineria.Readers.ReaderFactory.get_reader" href="#clasification_mineria.Readers.ReaderFactory.get_reader">get_reader</a></code></li>
+<li><code><a title="clasification_mineria.Readers.ReaderFactory.readers" href="#clasification_mineria.Readers.ReaderFactory.readers">readers</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="clasification_mineria.Readers.Standoff" href="#clasification_mineria.Readers.Standoff">Standoff</a></code></h4>
+<ul class="">
+<li><code><a title="clasification_mineria.Readers.Standoff.annotation_extensions" href="#clasification_mineria.Readers.Standoff.annotation_extensions">annotation_extensions</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.get_annotation_files" href="#clasification_mineria.Readers.Standoff.get_annotation_files">get_annotation_files</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.ignored_entities" href="#clasification_mineria.Readers.Standoff.ignored_entities">ignored_entities</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.load" href="#clasification_mineria.Readers.Standoff.load">load</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.load_document" href="#clasification_mineria.Readers.Standoff.load_document">load_document</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.load_entity" href="#clasification_mineria.Readers.Standoff.load_entity">load_entity</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.load_relation" href="#clasification_mineria.Readers.Standoff.load_relation">load_relation</a></code></li>
+<li><code><a title="clasification_mineria.Readers.Standoff.split_paragraphs" href="#clasification_mineria.Readers.Standoff.split_paragraphs">split_paragraphs</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

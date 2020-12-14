@@ -6,6 +6,14 @@ from sklearn.preprocessing import label_binarize
 
 
 class Token:
+    """
+    Text token
+    _start (int): Relative position in the doc
+    _end (int): Relative position in the doc
+    _text (str): The contained text
+    _ws (str): Contains the afterwords whitespaces
+    """
+
     def __init__(self, start: int, end: int, text: str, ws: str):
         self._start = start
         self._end = end
@@ -36,6 +44,13 @@ class Token:
 
 
 class SpanTokens:
+    """
+    Contains a list of tokens
+
+    Attributes:
+        _tokens (List[Token]): The contained tokens
+    """
+
     def __init__(self, tokens: List[Token]):
         self._tokens = tokens
 
@@ -45,11 +60,29 @@ class SpanTokens:
 
 
 class EntityType:
+    """
+    Contains Entity types
+
+    Attributes:
+        _type (str): entity type
+    """
+
     def __init__(self, ent_type: str):
         self._type = ent_type
 
 
 class Entity:
+    """
+    Contains a entity and it's info
+
+    Attributes:
+        _id (int): relative id to dataset
+        _did (str): relative id to document
+        _type (EntityType): entity type
+        _tokens (List[tokens]): the list of tokens
+        _text (str): the text
+    """
+
     def __init__(self, ent_id: int, ent_did: str, ent_type: EntityType,
                  ent_tokens: List[Token], ent_text: str):
         self._id = ent_id
@@ -69,6 +102,13 @@ class Entity:
 
 
 class RelationType:
+    """
+    Contains a relation type
+
+    Attributes:
+        _type (str): relation type
+    """
+
     def __init__(self, rel_type: str):
         self._type = rel_type
 
@@ -77,6 +117,18 @@ class RelationType:
 
 
 class Relation:
+    """
+    Contains a relation and it's info
+
+    Attributes:
+        _rel_id (int): relative id to dataset
+        _doc_id (str): relative id to document
+        _type (RelationType): relation type
+        _entities (Dict[str,Entity]): The related entities
+        _head (Entity): The head entity
+        _tail (Entity): The tail entity
+    """
+
     def __init__(self, rel_id: int, doc_id: str, rel_type: RelationType,
                  entities: OrderedDict):
         self._rel_id = rel_id
@@ -101,6 +153,18 @@ class Relation:
 
 
 class Document:
+    """
+    Contains a document and it's info
+
+    Attributes:
+        _name (str): The filename
+        _doc_id (int): The relative id to dataset
+        _relations (Dict[str, Relation]): the contained relations
+        _entities (Dict[str, Entity]): the contained entities
+        _text (str): the document text
+        _tokens (List[Token]): the tokenized text
+    """
+
     def __init__(self, file_name: str, doc_id: int, text: str,
                  tokens: List[Token]):
         self._name = file_name
@@ -134,6 +198,17 @@ class Document:
                   negative_count: int = 2) -> List[Tuple[List[str],
                                                          List[str],
                                                          List[str], str]]:
+        """
+        Generates the raw data with negative relations
+        Args:
+            negative_count: negative proportion
+
+        Returns:
+            The generated raw data
+
+        Raises:
+            AssertionError: If error sampling
+        """
         items = []
         tokens = SpanTokens(self._tokens).to_list
         entities = list(self._entities.values())
@@ -151,7 +226,7 @@ class Document:
                     tail = samples[1]
                     if (head.doc_id,
                         tail.doc_id) not in self._relations and (
-                    tail.doc_id, head.doc_id) not in self._relations:
+                            tail.doc_id, head.doc_id) not in self._relations:
                         items.append(
                             (tokens, SpanTokens(samples[0].tokens).to_list,
                              SpanTokens(samples[1].tokens).to_list, "None"))
@@ -164,6 +239,21 @@ class Document:
 
 
 class Dataset:
+    """
+    Container of a corpus
+
+    Attributes:
+        _id (str): Corpus name
+        _documents (Dict[str, Document]): The contained docs.
+        _entities (Dict[str, Entity]): The contained entities.
+        _relations (Dict[str, Relation]): The contained relations.
+        _entity_types (Dict[str, EntityType]): The contained entity types.
+        _relation_types (Dict[str, RelationType]): The contained rel types.
+        _did (int): document counter
+        _rid (int): relation counter
+        _eid (int): entity counter
+    """
+
     def __init__(self, corpus_name: str):
         self._id = corpus_name
         self._documents = OrderedDict()
@@ -216,6 +306,17 @@ class Dataset:
     def get_raw_data(self,
                      proportion: int,
                      rel_types: List[str]) -> Dict[str, Union[List[str], str]]:
+        """
+        Gets the dataset raw data with negative relations by the provided
+        proportion.
+        Args:
+            proportion: The negative proportion
+            rel_types: The class values
+
+        Returns:
+            The generated raw data
+
+        """
         raw_data = {
             "tokens": [],
             "head": [],

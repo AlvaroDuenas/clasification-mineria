@@ -9,6 +9,12 @@ from clasification_mineria.Entities import Token
 
 
 class Tokenizer(ABC):
+    """
+    The abstract tokenizer
+
+    Attributes:
+        _model_name (str): Name of each option
+    """
     models = []
 
     def __init__(self, model_name: str):
@@ -19,6 +25,12 @@ class Tokenizer(ABC):
 
 
 class SpacyTokenizer(Tokenizer):
+    """
+    The abstract tokenizer
+
+    Attributes:
+        _nlp : The Spacy's natural language processor
+    """
     models = ["en_core_web_sm", "en_core_web_md", "en_core_web_lg"]
 
     def __init__(self, model_name: str):
@@ -42,6 +54,14 @@ class SpacyTokenizer(Tokenizer):
 
     @staticmethod
     def load_nlp(model_name: str):
+        """
+        Loads the spacy's model and downloads it if needed.
+        Args:
+            model_name: Name of the model
+
+        Returns:
+            The generated model
+        """
         try:
             return spacy_load(model_name)
         except OSError:
@@ -51,15 +71,37 @@ class SpacyTokenizer(Tokenizer):
             return spacy_load(model_name)
 
     def tokenize(self, text: str) -> List[Token]:
+        """
+        Tokenizes the requested text
+        Args:
+            text: The string to be tokenized
+
+        Returns:
+            The generated tokens
+        """
         return [Token(token.idx, token.idx + len(token), token.text,
                       token.whitespace_) for token in self._nlp(text)]
 
 
 class TokenizerFactory:
+    """
+    The tokenizer generator
+    """
     tokenizers = ["spacy"]
 
     @staticmethod
     def get_tokenizer(name: str) -> Type[Tokenizer]:
+        """
+        Given a tokenizer name returns the related Tokenizer.
+        Args:
+            name: Tokenizer name
+
+        Returns:
+            The related Tokenizer type
+
+        Raises:
+            ValueError: If not found
+        """
         if name == "spacy":
             return SpacyTokenizer
         else:

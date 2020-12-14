@@ -9,6 +9,13 @@ from clasification_mineria.Tokenizer import TokenizerFactory
 
 
 class App:
+    """
+    Attributes:
+        _reader (Type[Reader]): Format reader
+        _train_path (str): Train folder path
+        _test_path (str): Test folder path
+    """
+
     def __init__(self, train_path: str, test_path: str,
                  data_format: str = "standoff"):
         self._reader = ReaderFactory.get_reader(data_format)
@@ -16,6 +23,12 @@ class App:
         self._test_path = test_path
 
     def start(self, root: str = "out/") -> None:
+        """
+        Iterates throughout the possible parameters and saves the generated
+        analysis files.
+        Args:
+            root: The folder to be saved the data
+        """
         helpers.create_folder(root)
         for tokenizer_name in TokenizerFactory.tokenizers:
             tokenizer = TokenizerFactory.get_tokenizer(tokenizer_name)

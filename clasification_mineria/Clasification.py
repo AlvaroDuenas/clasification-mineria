@@ -20,10 +20,25 @@ def dummy_fun(doc):
 
 
 class ClassifierFactory:
+    """
+    The classifier factory
+    """
     names = ["RandomForest", "SVM"]
 
     @staticmethod
     def get_classifier(name: str):
+        """
+        Returns the requested classifier
+        Args:
+            name: The requested classifier's name
+
+        Returns:
+            The Classifier
+
+        Raises:
+            ValueError: If not found
+
+        """
         if name == "SVM":
             return SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3,
                                  random_state=42,
@@ -36,10 +51,22 @@ class ClassifierFactory:
 
 
 class TransformerFactory:
+    """
+    The transformer generator
+    """
     models = ["tfidf", "doc2vec"]
 
     @staticmethod
     def get_transformer(name: str) -> Union[TfidfVectorizer, D2VTransformer]:
+        """
+        Returns the requested transformer
+        Args:
+            name: The requested transformer's name
+
+        Returns:
+            The requested transformer
+
+        """
         if name == "tfidf":
             return TfidfVectorizer(
                 use_idf=True,
@@ -50,17 +77,45 @@ class TransformerFactory:
                 token_pattern=None)
         elif name == "doc2vec":
             return D2VTransformer(dm=1, size=100, window=5, iter=10)
+        else:
+            raise ValueError
 
 
 class Transformer(BaseEstimator, TransformerMixin):
+    """
+    The transformer, converts tokens to vectorized data.
+
+    Attributes:
+        _transformer (Union[TfidfVectorizer, D2VTransformer]): The converter
+    """
+
     def __init__(self, name: str = "doc2vec"):
         self._transformer = TransformerFactory.get_transformer(name)
 
-    def fit(self, x, y=None):
+    def fit(self, x, y=None) -> 'Transformer':
+        """
+        Trains the converter
+        Args:
+            x: Train data
+            y: Test data
+
+        Returns:
+            Returns itself
+        """
         self._transformer.fit(x)
         return self
 
     def transform(self, x, y=None):
+        """
+        Transforms the train data
+        Args:
+            x: The train data
+            y: The test data
+
+        Returns:
+            The vectorized data
+
+        """
         tokens = self._transformer.transform(x["tokens"])
         head = self._transformer.transform(x["head"])
         tail = self._transformer.transform(x["tail"])
@@ -74,9 +129,24 @@ class Transformer(BaseEstimator, TransformerMixin):
                 pd.DataFrame(tail), lsuffix="_").values
 
     def fit_transform(self, x, y=None, **fit_params):
+        """
+        Trains and transforms together
+        Args:
+            x: Train data
+            y: Test data
+            **fit_params: Ignored Args
+
+        Returns:
+            The vectorized train data
+        """
         return self.fit(x["tokens"]).transform(x)
 
     def len_vocab(self) -> int:
+        """
+        Gets the trained transformer's vocabs length
+        Returns:
+            The length
+        """
         if isinstance(self._transformer, TfidfVectorizer):
             return len(self._transformer.vocabulary_)
         elif isinstance(self._transformer, D2VTransformer):
@@ -84,6 +154,15 @@ class Transformer(BaseEstimator, TransformerMixin):
 
 
 class Classifier:
+    """
+    The pipeline that transforms the input and performs the classification
+
+    Attributes:
+        _transformer (Transformer): The transformer
+        _classifier (OneVsRestClassifier): The multiclass classifier
+        _pipe (Pipeline): The pipeline
+    """
+
     def __init__(self, transformer: str = "tfidf",
                  classifier: str = "RandomForest"):
         self._transformer = Transformer(transformer)
@@ -91,14 +170,37 @@ class Classifier:
             ClassifierFactory.get_classifier(classifier))
         self._pipe = make_pipeline(self._transformer, self._classifier)
 
-    def train(self, x_train, y_train):
+    def train(self, x_train, y_train) -> None:
+        """
+        Trains the pipeline
+        Args:
+            x_train: Train attributes
+            y_train: Train class
+        """
         self._pipe.fit(x_train, y_train)
 
     def len_vocabulary(self) -> int:
+        """
+        The transformer's vocabs length
+        Returns:
+            The length
+        """
         return self._pipe[0].len_vocab()
 
     def dev(self, x_test, y_test, rel_types: List[str],
-            output_path: str = None):
+            output_path: str = None) -> pd.DataFrame:
+        """
+        Tests the trained model
+        Args:
+            x_test: dev attributes
+            y_test: dev class
+            rel_types: class values
+            output_path: Folder to store generated files
+
+        Returns:
+            The info dataframe
+
+        """
         if hasattr(self._pipe, "decision_function"):
             self._roc(x_test, y_test, rel_types, output_path)
         y_pred = self._pipe.predict(x_test)
@@ -119,7 +221,17 @@ class Classifier:
         plt.close()
         return data_frame
 
-    def _roc(self, x_test, y_test, rel_types: List[str], output_path: str):
+    def _roc(self, x_test, y_test, rel_types: List[str],
+             output_path: str) -> None:
+        """
+        Performs roc over the data and the model
+        https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
+        Args:
+            x_test: Dev attributes values
+            y_test: Dev class values
+            rel_types: Class Values
+            output_path: Folder to store generated files
+        """
         y_score = self._pipe.decision_function(x_test)
         n_classes = len(rel_types)
         # Compute ROC curve and ROC area for each class
