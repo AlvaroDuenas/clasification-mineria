@@ -55,15 +55,12 @@ class App:
                         test_data = self._reader.load(self._test_path,
                                                       tokenizer_).get_raw_data(
                             negative_proportion, rel_types)
-                        print("train_data", len(train_data["class"]))
-                        print("test_data", len(test_data["class"]))
                         for clf_name in ClassifierFactory.names:
                             clf_path = prop_path + clf_name + "/"
                             helpers.create_folder(clf_path)
                             classifier = Classifier(trans_name,
                                                     clf_name)
                             classifier.train(train_data, train_data["class"])
-                            print(classifier.len_vocabulary())
                             data_frame = classifier.dev(test_data,
                                                         test_data["class"],
                                                         rel_types,
