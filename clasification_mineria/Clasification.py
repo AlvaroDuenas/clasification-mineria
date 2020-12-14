@@ -1,13 +1,13 @@
 from itertools import cycle
-from typing import List
-
+from typing import List, Union
+from gensim.sklearn_api import D2VTransformer
 from scipy import sparse
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import SGDClassifier
-from sklearn.metrics import auc, roc_curve, f1_score, classification_report
+from sklearn.metrics import auc, roc_curve, classification_report
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import make_pipeline
 from matplotlib import pyplot as plt
 import numpy as np
@@ -20,7 +20,7 @@ def dummy_fun(doc):
 
 
 class ClassifierFactory:
-    names = ["Bayes", "SVM"]
+    names = ["RandomForest", "SVM"]
 
     @staticmethod
     def get_classifier(name: str):
@@ -28,44 +28,74 @@ class ClassifierFactory:
             return SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3,
                                  random_state=42,
                                  max_iter=5, tol=None)
-        elif name == "Bayes":
-            return MultinomialNB()
+        elif name == "RandomForest":
+            # return MultinomialNB()
+            return RandomForestClassifier()
         else:
             raise ValueError
 
 
+class TransformerFactory:
+    models = ["tfidf", "doc2vec"]
+
+    @staticmethod
+    def get_transformer(name: str) -> Union[TfidfVectorizer, D2VTransformer]:
+        if name == "tfidf":
+            return TfidfVectorizer(
+                use_idf=True,
+                analyzer='word',
+                tokenizer=dummy_fun,
+                preprocessor=dummy_fun,
+                stop_words=None,
+                token_pattern=None)
+        elif name == "doc2vec":
+            return D2VTransformer(dm=1, size=100, window=5, iter=10)
+
+
 class Transformer(BaseEstimator, TransformerMixin):
-    def __init__(self, use_idf=True, stop_words=None):
-        self._tfidf = TfidfVectorizer(
-            use_idf=use_idf,
-            analyzer='word',
-            tokenizer=dummy_fun,
-            preprocessor=dummy_fun,
-            stop_words=stop_words,
-            token_pattern=None)
+    def __init__(self, name: str = "doc2vec"):
+        self._transformer = TransformerFactory.get_transformer(name)
 
     def fit(self, x, y=None):
-        self._tfidf.fit(x)
+        self._transformer.fit(x)
         return self
 
     def transform(self, x, y=None):
-        return sparse.hstack((self._tfidf.transform(x["tokens"]),
-                              self._tfidf.transform(x["head"]),
-                              self._tfidf.transform(x["tail"])))
+        tokens = self._transformer.transform(x["tokens"])
+        head = self._transformer.transform(x["head"])
+        tail = self._transformer.transform(x["tail"])
+        if isinstance(self._transformer, TfidfVectorizer):
+            return sparse.hstack((tokens,
+                                  head,
+                                  tail))
+        elif isinstance(self._transformer, D2VTransformer):
+            return pd.DataFrame(tokens).join(pd.DataFrame(head),
+                                             rsuffix="_").join(
+                pd.DataFrame(tail), lsuffix="_").values
 
     def fit_transform(self, x, y=None, **fit_params):
         return self.fit(x["tokens"]).transform(x)
 
+    def len_vocab(self) -> int:
+        if isinstance(self._transformer, TfidfVectorizer):
+            return len(self._transformer.vocabulary_)
+        elif isinstance(self._transformer, D2VTransformer):
+            return len(self._transformer.gensim_model.wv.vocab)
+
 
 class Classifier:
-    def __init__(self, classifier="Bayes", **kwargs):
-        self._transformer = Transformer(**kwargs)
+    def __init__(self, transformer: str = "tfidf",
+                 classifier: str = "RandomForest"):
+        self._transformer = Transformer(transformer)
         self._classifier = OneVsRestClassifier(
             ClassifierFactory.get_classifier(classifier))
         self._pipe = make_pipeline(self._transformer, self._classifier)
 
     def train(self, x_train, y_train):
         self._pipe.fit(x_train, y_train)
+
+    def len_vocabulary(self) -> int:
+        return self._pipe[0].len_vocab()
 
     def dev(self, x_test, y_test, rel_types: List[str],
             output_path: str = None):
